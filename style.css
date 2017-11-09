@@ -1,0 +1,45 @@
+.addArtista{
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.addMusica{
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.cPlaylist{
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.inicio{
+    width: 200px;
+    margin-top:200px; 
+    margin-left:auto; 
+    margin-right:auto;
+}
+.mostraPlaylists{
+    width: 200px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.mostraUmaPlaylist{
+    width: 200px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.container{
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;    
+}
+.table{
+    text-align: center;
+}
+.botoesModal{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    width: 150px;
+}

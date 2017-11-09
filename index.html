@@ -1,0 +1,224 @@
+<DOCTYPE html>
+    <html ng-app="tunePlayer">
+        <head>
+            <title>Tune Player</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <script src="app.js"></script>
+            <link rel="stylesheet" type="text/css" href="style.css">
+        </head>
+
+        <body ng-controller="tunePlayerCtrl">
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Tune Player</a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                           <li class="active"><a href="#" ng-click="redirecionaInicio()">Início</a></li>
+                           <li><a href="#" ng-click="redirecionaAddArtista()">Adicionar Artista</a></li>
+                           <li><a href="#"ng-click="redirecionaAddMusica()">Adicionar Música</a></li>
+                           <li><a href="#" ng-click="redirecionaCriaPlaylist()">Nova Playlist</a></li>
+                        </ul>
+                        <form class="navbar-form navbar-right">
+                            <div class="input-group">
+                              <input type="text" class="form-control" placeholder="Pesquisar Artista" ng-model="artistaPesquisado.nome"> 
+                              <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit" ng-disabled="!artistaPesquisado.nome" ng-click="pesquisarArtista(artistaPesquisado)">
+                                  <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                              </div>
+                            </div>
+                        </form>
+                    </div>
+                </nav>
+    
+            <div ng-show="adicionaArtista" class="addArtista">
+                <div class="form-group">
+                    <label>Nome do Artista:</label>
+                    <input type="text" class="form-control" id="nomeDoArtista" ng-model="artista.nome">
+                </div>
+                <div class="form-group">
+                    <label>Foto do Artista:</label>
+                    <input type="text" class="form-control" id="fotoDoArtista" ng-model="artista.foto">
+                </div>
+                <button type="button" class="btn btn-success" ng-disabled="!artista.nome" ng-click="adicionarArtista(artista)">Adicionar Artista</button>
+            </div>
+
+            <div ng-show="adicionaMusica" class="addMusica">
+                <div class="form-group">
+                    <label>Nome da Música:</label>
+                    <input type="text" class="form-control" id="nomeDaMusica" ng-model="musica.nome">
+                </div>
+                <div class="form-group">
+                    <label>Artista:</label>
+                    <input type="text" class="form-control" id="nomeDoArtista" ng-model="musica.artista">
+                </div>
+                <div class="form-group">
+                    <label>Álbum:</label>
+                    <input type="text" class="form-control" id="nomeDoAlbum" ng-model="musica.album">
+                </div>
+                <div class="form-group">
+                    <label>Ano de lançamento:</label>
+                    <input type="text" class="form-control" id="anoDaMusica" ng-model="musica.ano">
+                </div>
+                <div class="form-group">
+                    <label>Tempo de duração:</label>
+                    <input type="text" class="form-control" id="duracaoDaMusica" ng-model="musica.duracao">
+                </div>
+                <button type="button" class="btn btn-success" ng-disabled="!musica.nome || !musica.artista || !musica.album || !musica.ano || !musica.duracao" ng-click="adicionarMusica(musica)">Adicionar Musica</button>
+            </div>
+
+            <div ng-show="criaPlaylist" class="cPlaylist">
+                <div class="form-group">
+                    <label>Nome da Playlist:</label>
+                    <input type="text" class="form-control" id="nomeDaPlaylist" ng-model="playlist.nome">
+                </div>
+                <button type="button" class="btn btn-success" ng-disabled="!playlist.nome" ng-click="criarPlaylist(playlist)">Criar Playlist</button>
+            </div>
+
+            <div ng-show="exibeInicio" class="inicio">
+                <button type="button" class="btn btn-success" ng-click="exibirPlaylists()">Exibir Playlists</button>
+                <p></p>
+                <p></p>
+                <button type="button" class="btn btn-success" ng-click="exibirArtistas()">Exibir Artistas</button>
+                <p></p>
+                <p></p>
+                <button type="button" class="btn btn-success" ng-click="exibirArtistasFavoritos()">Exibir Artistas Favoritos</button>
+            </div>
+
+            <div ng-show="exibePlaylists">
+                <div class="container">
+                    <table class="table">
+                        <tr>
+                            <th style="text-align: center">Nome</th>
+                            <th style="text-align: center">Remover playlist</th>
+                        </tr>
+                        <tr ng-repeat="playlistSelecionada in playlists">
+                            <td><button type="button" class="btn btn-success" ng-click="mostrarPlaylist(playlistSelecionada)">{{playlistSelecionada.nome}}</button> </td>
+                            <td><button type="button" class="btn btn-success" ng-click="removerPlaylist(playlistSelecionada)">Remover</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div ng-show="mostraPlaylist">
+                <div class="container">
+                    <table class="table">
+                        <tr>
+                            <th style="text-align: center">Música</th>
+                            <th style="text-align: center">Remover música</th>
+                        </tr>
+                        <tr ng-repeat="musicaPlaylist in playlistEmUso.musicas">
+                            <td><h5>{{musicaPlaylist.nome}}</h5></td>
+                            <td><button type="button" class="btn btn-success" ng-click="removerMusicaDaPlaylist(musicaPlaylist)">Remover</td>
+                        </tr>
+                    </table>
+                    <input style="width: 135px; margin-left: 150; margin-right: auto" class="form-control" type="text" placeholder="Adicionar Música" ng-model="musicaAdd.nome">
+                    <button style="margin-left: 240" class="btn btn-success" type="button" ng-diabled="!nomeMusica" ng-click="addMusicaPlaylist(musicaAdd)">Ok</button>
+                </div>
+            </div>
+            
+            <div ng-show="pesquisaArtista">
+                <div class="container">
+                    <table class="table">
+                        <tr>
+                            <th style="text-align: center">Nome</th>
+                            <th style="text-align: center">Adicionar aos Favoritos</th>
+                        </tr>
+                        <tr ng-repeat="artistaProcurado in artistasPesquisados">
+                            <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" ng-click="transformaArtistaModal(artistaProcurado)">{{artistaProcurado.nome}}</button> </td>
+                            <td><button type="button" class="btn btn-success" ng-click="addAosFavoritos(artistaProcurado)">Adicionar</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div ng-show="exibeArtistas">
+                <div class="container">
+                    <table class="table">
+                        <tr>
+                            <th style="text-align: center">Nome</th>
+                            <th style="text-align: center">Adicionar aos Favoritos</th>
+                        </tr>
+                        <tr ng-repeat="artista in artistas">
+                            <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" ng-click="transformaArtistaModal(artista)">{{artista.nome}}</button> </td>
+                            <td><button type="button" class="btn btn-success" ng-click="addAosFavoritos(artista)">Adicionar</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div ng-show="exibeArtistasFavoritos">
+                <div class="container">
+                    <table class="table">
+                        <tr>
+                            <th style="text-align: center">Nome</th>
+                            <th style="text-align: center">Remover dos Favoritos</th>
+                        </tr>
+                        <tr ng-repeat="artistaASerRemovido in artistasFavoritos">
+                            <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" ng-click="transformaArtistaModal(artistaASerRemovido)">{{artistaASerRemovido.nome}}</button> </td>
+                            <td><button type="button" class="btn btn-success" ng-click="removerDosFavoritos(artistaASerRemovido)">Remover</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="container">
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                      <div class="modal-dialog">
+              
+                        <!-- Modal content * Usar artistaModal -->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Artista</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div class="">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <img style="width: 250px; height: 250px; margin-top: 15px" ng-src="{{artistaModal.foto}}">
+                                  <p></p>
+                                  <hr/>  
+                                  <input class="botoesModal form-control" type="number" placeholder="Nota" ng-model="nota">
+                                  <button class="botoesModal btn btn-success btn-block" type="button" name="button" ng-click="adicionarNota(artistaModal, nota)">Atribuir Nota</button>
+                                </div>
+                                <div class="col-md-6">
+                                  <ul style="width: 250px; height: 250px; margin-top: 15px" class="list-group">
+                                    <h4>Nome:</h4>
+                                    <li class="list-group-item list-group-item-success">{{artistaModal.nome}}</li>
+                                    <h4>Última Música Ouvida:</h4>
+                                    <li class="list-group-item list-group-item-success">{{artistaModal.ultimaMusica}}</li>
+                                    <h4>Lista de Álbuns</h4>
+                                    <li class="list-group-item list-group-item-success">
+                                      <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                          Álbuns
+                                          <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                          <li style="text-align: center" ng-repeat="albumModal in artistaModal.albuns">{{albumModal.nome}}</li>
+                                        </ul>          
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  <hr/>
+                                  <input class="botoesModal form-control" type="text" placeholder="Última música ouvida" ng-model="musica">
+                                  <button class="botoesModal btn btn-success btn-block" type="button" name="button" ng-click="ultimaMusicaArtista(artistaModal, musica)">Alterar</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+            
+        </body>
+    </html>
