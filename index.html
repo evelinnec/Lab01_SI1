@@ -169,52 +169,60 @@
             </div>
             
             <div class="container">
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
-                      <div class="modal-dialog">
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
               
-                        <!-- Modal content * Usar artistaModal -->
+                    <!-- Modal content * Usar artistaModal -->
                         <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Artista</h4>
-                          </div>
-                          <div class="modal-body">
-                            <div class="">
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <img style="width: 250px; height: 250px; margin-top: 15px" ng-src="{{artistaModal.foto}}">
-                                  <p></p>
-                                  <hr/>  
-                                  <input class="botoesModal form-control" type="number" placeholder="Nota" ng-model="nota">
-                                  <button class="botoesModal btn btn-success btn-block" type="button" name="button" ng-click="adicionarNota(artistaModal, nota)">Atribuir Nota</button>
-                                </div>
-                                <div class="col-md-6">
-                                  <ul style="width: 250px; height: 250px; margin-top: 15px" class="list-group">
-                                    <h4>Nome:</h4>
-                                    <li class="list-group-item list-group-item-success">{{artistaModal.nome}}</li>
-                                    <h4>Última Música Ouvida:</h4>
-                                    <li class="list-group-item list-group-item-success">{{artistaModal.ultimaMusica}}</li>
-                                    <h4>Lista de Álbuns</h4>
-                                    <li class="list-group-item list-group-item-success">
-                                      <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                          Álbuns
-                                          <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                          <li style="text-align: center" ng-repeat="albumModal in artistaModal.albuns">{{albumModal.nome}}</li>
-                                        </ul>          
-                                      </div>
-                                    </li>
-                                  </ul>
-                                  <hr/>
-                                  <input class="botoesModal form-control" type="text" placeholder="Última música ouvida" ng-model="musica">
-                                  <button class="botoesModal btn btn-success btn-block" type="button" name="button" ng-click="ultimaMusicaArtista(artistaModal, musica)">Alterar</button>
-                                </div>
-                              </div>
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Artista</h4>
                             </div>
-                          </div>
+                            <div class="modal-body">
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img style="width: 250px; height: 250px; margin-top: 50px" ng-src="{{artistaModal.foto}}">
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul style="width: 250px; height: 250px; margin-top: 15px" class="list-group">
+                                                <h4>Nome:</h4>
+                                                <li class="list-group-item list-group-item-success">{{artistaModal.nome}}</li>
+                                                <h4>Última Música Ouvida:</h4>
+                                                <li class="list-group-item list-group-item-success">{{artistaModal.ultimaMusica}}</li>
+                                                <h4>Nota:</h4>
+                                                <li class="list-group-item list-group-item-success">{{artistaModal.nota}}</li>
+                                                <h4>Lista de Álbuns</h4>
+                                                <li class="list-group-item list-group-item-success">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                            Álbuns
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                            <li style="text-align: center" ng-repeat="albumModal in artistaModal.albuns">{{albumModal.nome}}</li>
+                                                        </ul>          
+                                                    </div>
+                                                </li>
+                                            </ul>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 50px" class="modal-footer">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input class="botoesModal form-control" type="number" placeholder="Nota" ng-model="nota">
+                                        <button class="botoesModal btn btn-success btn-block" type="button" name="button" ng-click="adicionarNota(artistaModal, nota)">Atribuir Nota</button>    
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input class="botoesModal form-control" type="text" placeholder="Última música ouvida" ng-model="musica">
+                                        <button class="botoesModal btn btn-success btn-block" type="button" name="button" ng-click="ultimaMusicaArtista(artistaModal, musica)">Alterar</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div> 

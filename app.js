@@ -54,7 +54,8 @@ app.controller("tunePlayerCtrl", function($scope){
                 }
                 
             }
-            artista.ultimaMusica = "";
+            artista.ultimaMusica = "Nenhuma música ouvida";
+            artista.nota = "-";
             $scope.artistas.push(artista);  
         }
         delete $scope.artista;
@@ -224,6 +225,13 @@ app.controller("tunePlayerCtrl", function($scope){
         delete $scope.musica;
     }
 
+    // Add nota ao artista
+
+    $scope.adicionarNota = function(artista, nota){
+        artista.nota = nota;
+        delete $scope.nota;
+    }
+
     //exibe todos os artistas
 
     $scope.exibeArtistas = false;
@@ -359,6 +367,7 @@ app.controller("tunePlayerCtrl", function($scope){
         for (var i = $scope.playlists.length-1; i >= 0; i--) {
             if($scope.playlists[i].nome === playlist.nome){
                 $scope.playlists.splice(i,1);
+                alert("Playlist excluída!");
             }            
         }
     }
@@ -367,6 +376,7 @@ app.controller("tunePlayerCtrl", function($scope){
         for (var i = $scope.playlistEmUso.musicas.length-1; i >= 0 ; i--) {
             if($scope.playlistEmUso.musicas[i].nome === musicaPlaylist.nome){
                 $scope.playlistEmUso.musicas.splice(i,1);
+                alert("Música excluída da playlist!");
             }
             
         }
